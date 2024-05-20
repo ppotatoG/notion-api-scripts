@@ -19,6 +19,17 @@ def mrkd2json(inp):
             return "FreeCodeCamp 백엔드 개발 강의"
         return resource
 
+    # 책 이름 변환 함수
+    def transform_book_name(book_name):
+        book_mapping = {
+            "그림과 실습으로 배우는 도커 & 쿠버네티스": "docker&cdk8s",
+            "그림으로 배우는 네트워크 원리": "네트워크 원리",
+            "기초가 든든한 데이터베이스": "데이터 베이스 기초",
+            "IT 엔지니어를 위한 네트워크 입문": "네트워크 입문",
+            "실전 카프카 개발부터 운영까지": "kafka"
+        }
+        return book_mapping.get(book_name, book_name)
+
     # 열 제목 파싱
     for i, l in enumerate(lines):
         if i == 0:
@@ -33,7 +44,17 @@ def mrkd2json(inp):
                 record['커밋 리소스'] = transform_commit_resource(record['커밋 리소스'])
                 # 완료 여부를 불리언 값으로 설정
                 record['완료 여부'] = False
-                ret.append(record)
+                # 책 이름 변환
+                record['책'] = transform_book_name(record['책'])
+                # 키를 노션 데이터베이스 속성 이름으로 변경
+                transformed_record = {
+                    "Date": record['날짜'],
+                    "Book": record['책'],
+                    "Study Section": record['학습 섹션'],
+                    "Commit Resource": record['커밋 리소스'],
+                    "Completed": record['완료 여부']
+                }
+                ret.append(transformed_record)
 
     return json.dumps(ret, indent=4, ensure_ascii=False)
 
@@ -127,6 +148,9 @@ my_str='''| 날짜       | 책                                                  
           | 2024-08-13 | 실전 카프카 개발부터 운영까지           | 실습 프로젝트 및 복습                | FreeCodeCamp 백엔드 개발 강의 1개 섹션 (30분)    | [ ]      |
           | 2024-08-14 | 실전 카프카 개발부터 운영까지           | 실습 프로젝트 및 복습                | FreeCodeCamp 백엔드 개발 강의 1개 섹션 (30분)    | [ ]      |'''
 
+# JSON 데이터로 변환
 json_data = mrkd2json(my_str)
+
+# JSON 데이터를 파일에 저장
 with open('data.json', 'w', encoding='utf-8') as f:
     f.write(json_data)
