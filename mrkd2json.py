@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timedelta
 
 def mrkd2json(inp):
     lines = inp.strip().split('\n')
@@ -14,9 +15,9 @@ def mrkd2json(inp):
         elif "프로그래머스 알고리즘 문제 1개 풀기" in resource:
             return "프로그래머스 js 알고리즘"
         elif "Kubernetes 공식 튜토리얼 섹션 1개 학습 및 실습" in resource:
-            return "Kubernetes 공식 튜토리얼 섹션 1개 학습 및 실습"
+            return "Kubernetes"
         elif "FreeCodeCamp 백엔드 개발 강의 1개 섹션" in resource:
-            return "FreeCodeCamp 백엔드 개발 강의"
+            return "FreeCodeCamp"
         return resource
 
     # 책 이름 변환 함수
@@ -26,7 +27,8 @@ def mrkd2json(inp):
             "그림으로 배우는 네트워크 원리": "네트워크 원리",
             "기초가 든든한 데이터베이스": "데이터 베이스 기초",
             "IT 엔지니어를 위한 네트워크 입문": "네트워크 입문",
-            "실전 카프카 개발부터 운영까지": "kafka"
+            "실전 카프카 개발부터 운영까지": "kafka",
+            "면접을 위한 CS 전공지식 노트": 'CS 전공지식'
         }
         return book_mapping.get(book_name, book_name)
 
