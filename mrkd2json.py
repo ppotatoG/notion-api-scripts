@@ -6,10 +6,8 @@ def mrkd2json(inp):
     ret = []
     keys = []
 
-    # 시작 날짜를 내일로 설정
     current_date = datetime.now() + timedelta(days=1)
 
-    # 커밋 리소스 변환 함수
     def transform_commit_resource(resource):
         if "Cisco Networking Academy" in resource:
             return "Cisco Networking Academy"
@@ -19,11 +17,12 @@ def mrkd2json(inp):
             return "프로그래머스 js 알고리즘"
         elif "Kubernetes 공식 튜토리얼 섹션 1개 학습 및 실습" in resource:
             return "Kubernetes"
+        elif "Docker 공식 튜토리얼 섹션 1개 학습 및 실습 (30분)" in resource:
+            return "Docker"
         elif "FreeCodeCamp 백엔드 개발 강의 1개 섹션" in resource:
             return "FreeCodeCamp"
         return resource
 
-    # 책 이름 변환 함수
     def transform_book_name(book_name):
         book_mapping = {
             "그림과 실습으로 배우는 도커 & 쿠버네티스": "docker&cdk8s",
@@ -121,10 +120,6 @@ my_str='''| 책                                                      | 학습 �
           | 면접을 위한 CS 전공지식 노트        | 면접 문제 풀이 (8장)              | 프로그래머스 알고리즘 문제 1개 풀기 (30분)       | [ ]      |
           | 면접을 위한 CS 전공지식 노트        | 모의 면접 및 복습                 | 프로그래머스 알고리즘 문제 1개 풀기 (30분)       | [ ]      |
           | 면접을 위한 CS 전공지식 노트        | 모의 면접 및 복습                 | 프로그래머스 알고리즘 문제 1개 풀기 (30분)       | [ ]      |
-          | 면접을 위한 CS 전공지식 노트        | 모의 면접 및 복습                 | 프로그래머스 알고리즘 문제 1개 풀기 (30분)       | [ ]      |
-          | 면접을 위한 CS 전공지식 노트        | 모의 면접 및 복습                 | 프로그래머스 알고리즘 문제 1개 풀기 (30분)       | [ ]      |
-          | 면접을 위한 CS 전공지식 노트        | 모의 면접 및 복습                 | 프로그래머스 알고리즘 문제 1개 풀기 (30분)       | [ ]      |
-          | 면접을 위한 CS 전공지식 노트        | 모의 면접 및 복습                 | 프로그래머스 알고리즘 문제 1개 풀기 (30분)       | [ ]      |
           | 그림과 실습으로 배우는 도커 & 쿠버네티스 | 도커 기본 개념 (1장)               | Docker 공식 튜토리얼 섹션 1개 학습 및 실습 (30분) | [ ]      |
           | 그림과 실습으로 배우는 도커 & 쿠버네티스 | 도커 이미지 생성 (2장)              | Docker 공식 튜토리얼 섹션 1개 학습 및 실습 (30분) | [ ]      |
           | 그림과 실습으로 배우는 도커 & 쿠버네티스 | 도커 컨테이너 관리 (3장)            | Docker 공식 튜토리얼 섹션 1개 학습 및 실습 (30분) | [ ]      |
@@ -154,9 +149,7 @@ my_str='''| 책                                                      | 학습 �
           | 실전 카프카 개발부터 운영까지           | 실습 프로젝트 및 복습                | FreeCodeCamp 백엔드 개발 강의 1개 섹션 (30분)    | [ ]      |
           | 실전 카프카 개발부터 운영까지           | 실습 프로젝트 및 복습                | FreeCodeCamp 백엔드 개발 강의 1개 섹션 (30분)    | [ ]      |'''
 
-# JSON 데이터로 변환
 json_data = mrkd2json(my_str)
 
-# JSON 데이터를 파일에 저장
 with open('data.json', 'w', encoding='utf-8') as f:
     f.write(json_data)
