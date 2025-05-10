@@ -2,3 +2,5 @@
 /idea
 .env
 .bash_profile
+*/node_modules
+.idea
